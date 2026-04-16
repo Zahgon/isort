@@ -15,7 +15,7 @@ LOCAL = "LOCALFOLDER"
 
 def module(name: str, config: Config = DEFAULT_CONFIG) -> str:
     """Returns the section placement for the given module name."""
-    return module_with_reason(name, config)[0]
+    pass
 
 
 @lru_cache(maxsize=1000)

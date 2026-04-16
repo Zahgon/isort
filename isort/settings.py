@@ -618,59 +618,23 @@ class Config(_Config):
 
     @property
     def known_patterns(self) -> list[tuple[Pattern[str], str]]:
-        if self._known_patterns is not None:
-            return self._known_patterns
-
-        self._known_patterns = []
-        pattern_sections = [STDLIB] + [section for section in self.sections if section != STDLIB]
-        for placement in reversed(pattern_sections):
-            known_placement = KNOWN_SECTION_MAPPING.get(placement, placement).lower()
-            config_key = f"{KNOWN_PREFIX}{known_placement}"
-            known_modules = getattr(self, config_key, self.known_other.get(known_placement, ()))
-            extra_modules = getattr(self, f"extra_{known_placement}", ())
-            all_modules = set(extra_modules).union(known_modules)
-            known_patterns = [
-                pattern
-                for known_pattern in all_modules
-                for pattern in self._parse_known_pattern(known_pattern)
-            ]
-            for known_pattern in known_patterns:
-                regexp = "^" + known_pattern.replace("*", ".*").replace("?", ".?") + "$"
-                self._known_patterns.append((re.compile(regexp), placement))
-
-        return self._known_patterns
+        pass
 
     @property
     def section_comments(self) -> tuple[str, ...]:
-        if self._section_comments is not None:
-            return self._section_comments
-
-        self._section_comments = tuple(f"# {heading}" for heading in self.import_headings.values())
-        return self._section_comments
+        pass
 
     @property
     def section_comments_end(self) -> tuple[str, ...]:
-        if self._section_comments_end is not None:
-            return self._section_comments_end
-
-        self._section_comments_end = tuple(f"# {footer}" for footer in self.import_footers.values())
-        return self._section_comments_end
+        pass
 
     @property
     def skips(self) -> frozenset[str]:
-        if self._skips is not None:
-            return self._skips
-
-        self._skips = self.skip.union(self.extend_skip)
-        return self._skips
+        pass
 
     @property
     def skip_globs(self) -> frozenset[str]:
-        if self._skip_globs is not None:
-            return self._skip_globs
-
-        self._skip_globs = self.skip_glob.union(self.extend_skip_glob)
-        return self._skip_globs
+        pass
 
     @property
     def sorting_function(self) -> Callable[..., list[str]]:
@@ -695,16 +659,7 @@ class Config(_Config):
 
     def _parse_known_pattern(self, pattern: str) -> list[str]:
         """Expand pattern if identified as a directory and return found sub packages"""
-        if pattern.endswith(os.path.sep):
-            patterns = [
-                filename
-                for filename in os.listdir(os.path.join(self.directory, pattern))
-                if os.path.isdir(os.path.join(self.directory, pattern, filename))
-            ]
-        else:
-            patterns = [pattern]
-
-        return patterns
+        pass
 
 
 def _get_str_to_type_converter(setting_name: str) -> Callable[[str], Any] | type[Any]:
@@ -734,38 +689,7 @@ def _abspaths(cwd: str, values: Iterable[str]) -> set[str]:
 
 
 def _find_config(path: str) -> tuple[str, dict[str, Any]]:
-    current_directory = path
-    tries = 0
-    while current_directory and tries < MAX_CONFIG_SEARCH_DEPTH:
-        for config_file_name in CONFIG_SOURCES:
-            potential_config_file = os.path.join(current_directory, config_file_name)
-            if os.path.isfile(potential_config_file):
-                config_data: dict[str, Any]
-                try:
-                    config_data = _get_config_data(
-                        potential_config_file, CONFIG_SECTIONS[config_file_name]
-                    )
-                except Exception:
-                    warn(
-                        f"Failed to pull configuration information from {potential_config_file}",
-                        stacklevel=2,
-                    )
-                    config_data = {}
-                if config_data:
-                    return (current_directory, config_data)
-
-        for stop_dir in STOP_CONFIG_SEARCH_ON_DIRS:
-            if os.path.isdir(os.path.join(current_directory, stop_dir)):
-                return (current_directory, {})
-
-        new_directory = os.path.split(current_directory)[0]
-        if new_directory == current_directory:
-            break
-
-        current_directory = new_directory
-        tries += 1
-
-    return (path, {})
+    pass
 
 
 def find_all_configs(path: str) -> Trie:

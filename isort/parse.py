@@ -204,12 +204,7 @@ def file_contents(contents: str, config: Config = DEFAULT_CONFIG) -> ParsedConte
                 nested_comments[line_parts[-1]] = comments[0]
 
             def _get_next_line() -> tuple[str, str | None]:
-                nonlocal index
-                if index >= line_count:
-                    raise StopIteration
-                result = parse_comments(in_lines[index])
-                index += 1
-                return result
+                pass
 
             line, import_string, extra_lines = collect_import_continuation(
                 line, import_string, _get_next_line, line_separator

@@ -161,7 +161,7 @@ class UnsupportedSettings(ISortError):
 
     @staticmethod
     def _format_option(name: str, value: Any, source: str) -> str:
-        return f"\t- {name} = {value}  (source: '{source}')"
+        pass
 
     def __init__(self, unsupported_settings: dict[str, dict[str, str]]):
         errors = "\n".join(

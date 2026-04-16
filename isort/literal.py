@@ -87,29 +87,29 @@ def register_type(
 
 @register_type("dict", dict)
 def _dict(value: dict[Any, Any], printer: ISortPrettyPrinter) -> str:
-    return printer.pformat(dict(sorted(value.items(), key=lambda item: item[1])))
+    pass
 
 
 @register_type("list", list)
 def _list(value: list[Any], printer: ISortPrettyPrinter) -> str:
-    return printer.pformat(sorted(value))
+    pass
 
 
 @register_type("unique-list", list)
 def _unique_list(value: list[Any], printer: ISortPrettyPrinter) -> str:
-    return printer.pformat(sorted(set(value)))
+    pass
 
 
 @register_type("set", set)
 def _set(value: set[Any], printer: ISortPrettyPrinter) -> str:
-    return "{" + printer.pformat(tuple(sorted(value)))[1:-1] + "}"
+    pass
 
 
 @register_type("tuple", tuple)
 def _tuple(value: tuple[Any, ...], printer: ISortPrettyPrinter) -> str:
-    return printer.pformat(tuple(sorted(value)))
+    pass
 
 
 @register_type("unique-tuple", tuple)
 def _unique_tuple(value: tuple[Any, ...], printer: ISortPrettyPrinter) -> str:
-    return printer.pformat(tuple(sorted(set(value))))
+    pass

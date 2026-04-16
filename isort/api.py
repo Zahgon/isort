@@ -82,20 +82,7 @@ def sort_code_string(
       TextIO stream is provided results will be written to it, otherwise no diff will be computed.
     - ****config_kwargs**: Any config modifications.
     """
-    input_stream = StringIO(code)
-    output_stream = StringIO()
-    config = _config(path=file_path, config=config, **config_kwargs)
-    sort_stream(
-        input_stream,
-        output_stream,
-        extension=extension,
-        config=config,
-        file_path=file_path,
-        disregard_skip=disregard_skip,
-        show_diff=show_diff,
-    )
-    output_stream.seek(0)
-    return output_stream.read()
+    pass
 
 
 def check_code_string(
@@ -119,15 +106,7 @@ def check_code_string(
     - **disregard_skip**: set to `True` if you want to ignore a skip set in config for this file.
     - ****config_kwargs**: Any config modifications.
     """
-    config = _config(path=file_path, config=config, **config_kwargs)
-    return check_stream(
-        StringIO(code),
-        show_diff=show_diff,
-        extension=extension,
-        config=config,
-        file_path=file_path,
-        disregard_skip=disregard_skip,
-    )
+    pass
 
 
 def sort_stream(

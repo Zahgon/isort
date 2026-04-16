@@ -17,8 +17,7 @@ def get_output(command: list[str]) -> str:
     :param str command: the command to run
     :returns: the stdout output of the command
     """
-    result = subprocess.run(command, stdout=subprocess.PIPE, check=True)  # nosec
-    return result.stdout.decode()
+    pass
 
 
 def get_lines(command: list[str]) -> list[str]:
@@ -27,8 +26,7 @@ def get_lines(command: list[str]) -> list[str]:
     :param str command: the command to run
     :returns: list of whitespace-stripped lines output by command
     """
-    stdout = get_output(command)
-    return [line.strip() for line in stdout.splitlines()]
+    pass
 
 
 def git_hook(
@@ -58,36 +56,4 @@ def git_hook(
 
     :return number of errors if in strict mode, 0 otherwise.
     """
-    # Get list of files modified and staged
-    diff_cmd = ["git", "diff-index", "--cached", "--name-only", "--diff-filter=ACMRTUXB", "HEAD"]
-    if lazy:
-        diff_cmd.remove("--cached")
-    if directories:
-        diff_cmd.extend(directories)
-
-    files_modified = get_lines(diff_cmd)
-    if not files_modified:
-        return 0
-
-    errors = 0
-    config = Config(
-        settings_file=settings_file,
-        settings_path=os.path.dirname(os.path.abspath(files_modified[0])),
-    )
-    for filename in files_modified:
-        if filename.endswith(".py"):
-            # Get the staged contents of the file
-            staged_cmd = ["git", "show", f":{filename}"]
-            staged_contents = get_output(staged_cmd)
-
-            try:
-                if not api.check_code_string(
-                    staged_contents, file_path=Path(filename), config=config
-                ):
-                    errors += 1
-                    if modify:
-                        api.sort_file(filename, config=config)
-            except exceptions.FileSkipped:  # pragma: no cover
-                pass
-
-    return errors if strict else 0
+    pass

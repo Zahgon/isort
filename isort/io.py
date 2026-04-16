@@ -29,12 +29,11 @@ class File:
 
     @staticmethod
     def from_contents(contents: str, filename: str) -> "File":
-        encoding = File.detect_encoding(filename, BytesIO(contents.encode("utf-8")).readline)
-        return File(stream=StringIO(contents), path=Path(filename).resolve(), encoding=encoding)
+        pass
 
     @property
     def extension(self) -> str:
-        return self.path.suffix.lstrip(".")
+        pass
 
     @staticmethod
     def _open(filename: str | Path) -> TextIOWrapper:
